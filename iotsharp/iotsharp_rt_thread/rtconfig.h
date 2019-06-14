@@ -237,6 +237,7 @@
 #define FAL_DEBUG 0
 #define FAL_PART_HAS_TABLE_CFG
 #define PKG_USING_FAL_V00200
+#define PKG_FAL_VER_NUM 0x00200
 
 /* peripheral libraries and drivers */
 
@@ -252,12 +253,6 @@
 /* samples: kernel and components samples */
 
 
-/* Privated Packages of RealThread */
-
-
-/* Network Utilities */
-
-
 /* Hardware Drivers Config */
 
 /* Onboard Peripheral Drivers */
@@ -265,6 +260,7 @@
 #define BSP_USING_FLASH
 #define BSP_USING_WIFI
 #define BSP_USING_WIFI_AUTO_INIT
+#define BSP_USING_LCD
 
 /* Offboard Peripheral Drivers */
 
@@ -273,6 +269,7 @@
 
 #define BSP_USING_UART1
 #define BSP_UART_USING_DMA_RX
+#define BSP_USING_SPI3
 #define BSP_USING_QSPI
 #define BSP_USING_SDIO
 #define BSP_USING_GPIO
