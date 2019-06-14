@@ -19,4 +19,11 @@
   "ver": "v1.0.1", 
   "name": "STM32_SDIO"
  }
+ ,
+  {
+  "path": "/packages/peripherals/aht10", 
+  "ver": "v1.0.0", 
+  "name": "aht10"
+ }
+ 
 ]

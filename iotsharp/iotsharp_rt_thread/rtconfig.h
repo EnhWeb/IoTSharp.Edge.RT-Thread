@@ -84,6 +84,9 @@
 #define RT_USING_SERIAL
 #define RT_SERIAL_USING_DMA
 #define RT_SERIAL_RB_BUFSZ 64
+#define RT_USING_HWTIMER
+#define RT_USING_I2C
+#define RT_USING_I2C_BITOPS
 #define RT_USING_PIN
 #define RT_USING_SDIO
 #define RT_SDIO_STACK_SIZE 512
@@ -95,6 +98,8 @@
 #define RT_USING_SFUD
 #define RT_SFUD_USING_SFDP
 #define RT_SFUD_USING_FLASH_INFO_TABLE
+#define RT_USING_SENSOR
+#define RT_USING_SENSOR_CMD
 
 /* Using WiFi */
 
@@ -205,6 +210,13 @@
 
 /* Wiced WiFi */
 
+#define PKG_USING_NETUTILS
+#define PKG_NETUTILS_NTP
+#define NETUTILS_NTP_TIMEZONE 8
+#define NETUTILS_NTP_HOSTNAME "ntp.rt-thread.org"
+#define NETUTILS_NTP_HOSTNAME2 "cn.ntp.org.cn"
+#define NETUTILS_NTP_HOSTNAME3 "edu.ntp.org.cn"
+#define PKG_USING_NETUTILS_LATEST_VERSION
 
 /* IoT Cloud */
 
@@ -241,6 +253,11 @@
 
 /* peripheral libraries and drivers */
 
+#define PKG_USING_AHT10
+#define AHT10_USING_SOFT_FILTER
+#define AHT10_AVERAGE_TIMES 10
+#define AHT10_SAMPLE_PERIOD 1000
+#define PKG_USING_AHT10_LATEST_VERSION
 #define PKG_USING_STM32_SDIO
 #define SDIO_BUFF_SIZE 4096
 #define SDIO_MAX_FREQ 24000000
@@ -269,6 +286,7 @@
 
 #define BSP_USING_UART1
 #define BSP_UART_USING_DMA_RX
+#define BSP_USING_I2C
 #define BSP_USING_SPI3
 #define BSP_USING_QSPI
 #define BSP_USING_SDIO
