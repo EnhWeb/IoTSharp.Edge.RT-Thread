@@ -1,3 +1,10 @@
+# IoTSharp.Edge.RT-Thread 说明
+IoTSharp.Edge.RT-Thread是一个基于 RT-Thread IoT-Board SDK 的IoTSharp对接协议实现， 我们回逐步完善接口和协议的处理， 这其中包括 遥测数据上传， 属性数据上传， 属性数据请求， RPC等等。 。。
+
+
+
+
+
 # RT-Thread IoT-Board SDK 说明
 
 ## 内容简介
