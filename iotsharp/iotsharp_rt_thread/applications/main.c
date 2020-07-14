@@ -19,6 +19,7 @@
 #include <wlan_mgnt.h>
 #include <drv_lcd.h>
 #include "aht10.h"
+#include "ntp.h"
 /**
  * MQTT URI farmat:
  * domain mode
@@ -65,7 +66,7 @@ int main(void)
     rt_pin_mode(PIN_KEY0, PIN_MODE_INPUT);
     lcd_clear(BLACK);
     lcd_set_color( BLACK,WHITE);
-    lcd_show_string(1, 1, 24, "IoTSharp.Edge V0.1");
+    lcd_show_string(1, 1, 24, "IoTSharp.Edge V0.2");
     /* draw a line on lcd */
     lcd_draw_line(0, 69 + 16 + 24 + 32, 240, 69 + 16 + 24 + 32);
 
@@ -75,7 +76,7 @@ int main(void)
     {
         lcd_draw_circle(120, 194, i);
     }
-
+ 
     rt_thread_mdelay(2000);
 
     while (count > 0)
@@ -101,11 +102,12 @@ int main(void)
             char application_message[256] = {0};
             humidity = aht10_read_humidity(dev);
             temperature = aht10_read_temperature(dev);
-            snprintf(application_message, sizeof(application_message), "{\"humidity\":%d.%d,\"temperature\":%d.%d}", (int)humidity, (int)(humidity * 10) % 10, (int)temperature, (int)(temperature * 10) % 10);
+            snprintf(application_message, sizeof(application_message), "{\"humidity\":%5.2f,\"temperature\":%5.2f}",  humidity,  temperature );
             mq_publish(application_message);
-            lcd_show_string(1, 72, 24, "Humidity:%d.%d      ", (int)humidity, (int)(humidity * 10) % 10);
-						lcd_show_string(1, 72+20, 24, "Temperature:%d.%d   ",  (int)temperature, (int)(temperature * 10) % 10);
+            lcd_show_string(1, 72, 24, "%s",  application_message  );
             count++;
+						 
+		
         }
     }
 }
@@ -136,15 +138,16 @@ static void mqtt_sub_default_callback(MQTTClient *c, MessageData *msg_data)
 static void mqtt_connect_callback(MQTTClient *c)
 {
     rt_kprintf("Start to connect  mqtt server\n");
-		lcd_show_string(1, 24, 24, "Start to connect IoTSharp.Net");
+		lcd_show_string(1, 24, 24, "Connect to IoTSharp");
 }
 
 static void mqtt_online_callback(MQTTClient *c)
 {
     rt_kprintf("Connect mqtt server success\n");
     rt_kprintf("Publish message: Hello,IotSharp! to topic: %s\n", pub_topic);
-    lcd_show_string(1, 24, 24, "Welcome  Connect to IoTSharp.Net");
-    mqtt_senddatetime(c);
+    lcd_show_string(1, 24, 24, "Welcome to IoTSharp");
+			ntp_sync_to_rtc("ntp.ntsc.ac.cn");
+							mqtt_senddatetime(c);
 }
 
 static void mqtt_senddatetime(MQTTClient *c)
@@ -155,14 +158,14 @@ static void mqtt_senddatetime(MQTTClient *c)
     char timebuf[26];
     strftime(timebuf, 26, "%Y-%m-%d %H:%M:%S", tm_info);
     char application_message[256];
-    snprintf(application_message, sizeof(application_message), "{\"startup_datetime\":\"%s\"}", timebuf);
+    snprintf(application_message, sizeof(application_message), "{\"device_datetime\":\"%s\"}", timebuf);
     mq_publish(application_message);
 }
 
 static void mqtt_offline_callback(MQTTClient *c)
 {
     rt_kprintf("Disconnect from mqtt server\n");
-		lcd_show_string(1, 24, 24, "Disconnect from IoTSharp.Net");
+		lcd_show_string(1, 24, 24, "Disconnect from IoTSharp");
 }
 
 /**
@@ -189,7 +192,7 @@ static void mq_start(void)
         client.uri = MQTT_URI;
 
         /* generate the random client ID */
-        rt_snprintf(cid, sizeof(cid), "iotsharp_edge_%d", rt_tick_get());
+        rt_snprintf(cid, sizeof(cid), "iotsharp_io_%d", rt_tick_get());
         rt_snprintf(sup_topic, sizeof(sup_topic), "%s", MQTT_SUBTOPIC);
 			  rt_snprintf(pub_topic, sizeof(pub_topic), "%s", MQTT_PUBTOPIC);
         /* config connect param */
