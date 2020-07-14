@@ -32,9 +32,9 @@
  * tcp://[fe80::20c:29ff:fe9a:a07e]:1883
  * ssl://[fe80::20c:29ff:fe9a:a07e]:1884
  */
-#define MQTT_URI "tcp://www.iotsharp.net:1883"
-#define MQTT_USERNAME "c00d88f899fd4413a41688e207ccbd99"
-#define MQTT_PASSWORD "c00d88f899fd4413a41688e207ccbd99"
+#define MQTT_URI "tcp://139.9.232.10:1883"
+#define MQTT_USERNAME "93c490602e974e61b892f1367ab53bde"
+#define MQTT_PASSWORD "93c490602e974e61b892f1367ab53bde"
 #define MQTT_SUBTOPIC "/devices/me/attributes/response/+"
 #define MQTT_PUBTOPIC "/devices/me/telemetry"
 
